@@ -10,7 +10,9 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'sidekiq-promise'
+```ruby
+gem 'sidekiq-promise'
+```
 
 And then execute:
 
@@ -75,7 +77,7 @@ notifies the user that the processing is complete.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/sidekiq-promise/fork )
+1. Fork it ( https://github.com/jamesotron/sidekiq-promise/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
