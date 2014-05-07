@@ -58,7 +58,7 @@ module Sidekiq
 
       def process_complete_message message
         unsubscribe
-        resolve message['job']
+        resolve message['result']
       end
 
       def process_error_message message

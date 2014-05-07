@@ -12,8 +12,8 @@ module Sidekiq
         publish_message redis_pool, status: 'dequeued', job: job, jid: job['jid']
       end
 
-      def job_completed job, redis_pool=Sidekiq.redis_pool
-        publish_message redis_pool, status: 'complete', job: job, jid: job['jid']
+      def job_completed job, result=nil, redis_pool=Sidekiq.redis_pool
+        publish_message redis_pool, status: 'complete', job: job, jid: job['jid'], result: result
       end
 
       def job_errored job, e, redis_pool=Sidekiq.redis_pool

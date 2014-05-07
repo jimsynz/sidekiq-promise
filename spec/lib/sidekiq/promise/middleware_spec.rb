@@ -21,8 +21,8 @@ describe Sidekiq::Promise::Middleware do
 
   describe '#job_completed' do
     it 'delegates to #publish_message' do
-      expect(middleware).to receive(:publish_message).with(redis_pool, {status: 'complete', job: {}, jid: nil})
-      middleware.job_completed Hash.new, redis_pool
+      expect(middleware).to receive(:publish_message).with(redis_pool, {status: 'complete', job: {}, jid: nil, result: :result})
+      middleware.job_completed Hash.new, :result, redis_pool
     end
   end
 

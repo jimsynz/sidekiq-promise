@@ -5,8 +5,12 @@ module Sidekiq
       def call worker, job, queue
         job_dequeued job
         result = yield
-        result.raise if thenable? result
-        job_completed job
+        if thenable? result
+          result.raise
+          job_completed job, result.result
+        else
+          job_completed job, result
+        end
       rescue Exception => e
         job_errored job, e
         raise e

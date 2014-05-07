@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Sidekiq::Promise::ServerMiddleware do
   let(:worker)     { double :worker }
-  let(:job)        { double :job }
+  let(:job)        { { jid: '12345' } }
   let(:queue)      { 'default' }
   let(:middleware) { described_class.new }
 
@@ -10,7 +10,8 @@ describe Sidekiq::Promise::ServerMiddleware do
     When 'the job is successful' do
       it 'dequeues the job, then yields, then completes' do
         expect(middleware).to receive(:job_dequeued).with(job)
-        expect(middleware).to receive(:job_completed).with(job)
+        expect(middleware).to receive(:job_completed).with(job, [[]])
+        #         ↓ [[]] is returned by RSpec's block probe.    ↑
         expect { |b| middleware.call(worker, job, queue, &b) }.to yield_control
       end
     end
