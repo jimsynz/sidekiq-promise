@@ -3,7 +3,7 @@
 `Sidekiq::Promise` turns Sidekiq workers into asynchronous promises using
 [MrDarcy](https://github.com/jamesotron/MrDarcy).
 
-[![Build Status](https://travis-ci.org/jamesotron/sidekick-promise.svg)](https://travis-ci.org/jamesotron/sidekick-promise)
+[![Build Status](https://travis-ci.org/jamesotron/sidekick-promise.svg?branch=master)](https://travis-ci.org/jamesotron/sidekick-promise)
 
 
 ## Installation
