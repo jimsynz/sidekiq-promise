@@ -25,5 +25,5 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency 'sidekiq', '~> 3.0.1'
-  spec.add_dependency 'mr_darcy'
+  spec.add_dependency 'mr_darcy', '>= 0.3.0'
 end

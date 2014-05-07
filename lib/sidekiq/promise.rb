@@ -14,6 +14,10 @@ module Sidekiq
       base.send :include, Sidekiq::Worker unless base.ancestors.member? Sidekiq::Worker
       base.extend(ClassMethods)
       base.send :sidekiq_options, retry: false
+      unless MrDarcy.driver == :celluloid
+        STDOUT.puts "Switched your MrDarcy driver to Celluloid - it was #{MrDarcy.driver}"
+        MrDarcy.driver = :celluloid
+      end
     end
 
     module ClassMethods
