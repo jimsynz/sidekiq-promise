@@ -6,6 +6,6 @@ class PromisingWorker
       10.times.map do
         SleepyWorker.as_promise 1
       end
-    end.final
+    end
   end
 end
