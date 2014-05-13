@@ -8,22 +8,10 @@ module Sidekiq
         @worker_klass = worker_klass
         @args         = args
 
-        this = self
-        block = proc do
-          this.send :subscribe
-        end
-        super block
+        super proc { subscribe }
       end
 
       private
-
-      def evaluate_promise &block
-        begin
-          block.call ::MrDarcy::Promise::DSL.new(self)
-        rescue Exception => e
-          reject e
-        end
-      end
 
       def subscribe
         @redis = Sidekiq.redis_pool.checkout
