@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe 'Promising job as promise' do
-  before(:all) { start_worker }
-  after(:all)  { kill_worker }
-  before       { clear_jobs }
-  after        { clear_jobs }
+  before { start_worker }
+  after  { kill_worker; clear_jobs }
 
   let(:promise) { PromisingWorker.as_promise }
   subject { promise }

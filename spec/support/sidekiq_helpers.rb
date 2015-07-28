@@ -3,8 +3,9 @@ require 'sidekiq/api'
 module SidekiqHelpers
   def start_worker
     return if @worker_pid
+    sidekiq_log = File.expand_path('../../sidekiq.log', __FILE__)
     server_path = File.expand_path('../../spec_server.rb', __FILE__)
-    @worker_pid = Process.spawn("bundle exec sidekiq -t 0 -r #{server_path}")
+    @worker_pid = Process.spawn("bundle exec sidekiq -t 1 -L #{sidekiq_log} -r #{server_path}", out: "/dev/null")
   end
 
   def kill_worker

@@ -19,11 +19,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.6"
-  %w| rake rspec guard guard-rspec guard-bundler terminal-notifier-guard
+  %w| rake rspec rspec-its guard guard-rspec guard-bundler terminal-notifier-guard
       pry |.each do |gem|
     spec.add_development_dependency gem
   end
 
-  spec.add_dependency 'sidekiq', '>= 3.0.1'
+  spec.add_dependency 'sidekiq', '>= 3.4.0'
   spec.add_dependency 'mr_darcy', '>= 0.4.0'
 end

@@ -14,19 +14,16 @@ module Sidekiq
       private
 
       def subscribe
-        @redis = Sidekiq.redis_pool.checkout
-        @redis.subscribe ::Sidekiq::Promise::Middleware::CHANNEL do |on|
-          on.subscribe { queue_job }
-          on.message do |channel,message|
-            message = JSON.parse(message)
-            process_message message if applicable? message
-          end
+        @subscription_id = Sidekiq::Promise::Subscription.subscribe do |message|
+          process_message message if applicable? message
+        end
+        Sidekiq::Promise::Subscription.ready.then do
+          queue_job
         end
       end
 
       def unsubscribe
-        @redis.unsubscribe
-        Sidekiq.redis_pool.checkin
+        Sidekiq::Promise::Subscription.unsubscribe @subscription_id if @subscription_id
       end
 
       def queue_job

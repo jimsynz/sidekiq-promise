@@ -2,6 +2,8 @@ require "sidekiq/promise/version"
 require 'sidekiq'
 require 'json'
 require 'mr_darcy'
+require 'sidekiq/promise/redis_connection'
+require 'sidekiq/promise/subscription'
 require 'sidekiq/promise/middleware'
 require 'sidekiq/promise/client_middleware'
 require 'sidekiq/promise/server_middleware'
@@ -39,6 +41,10 @@ module Sidekiq
           chain.add Sidekiq::Promise::ClientMiddleware
         end
       end
+    end
+
+    def redis_pool
+      @redis_pool ||= Sidekiq::Promise::RedisConnection.create
     end
   end
 end
