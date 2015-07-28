@@ -6,6 +6,7 @@
 InstalledFiles
 _yardoc
 coverage
+Gemfile.lock
 doc/
 lib/bundler/man
 pkg
