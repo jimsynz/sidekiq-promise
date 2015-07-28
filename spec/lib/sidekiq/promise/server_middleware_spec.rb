@@ -10,8 +10,7 @@ describe Sidekiq::Promise::ServerMiddleware do
     When 'the job is successful' do
       it 'dequeues the job, then yields, then completes' do
         expect(middleware).to receive(:job_dequeued).with(job)
-        expect(middleware).to receive(:job_completed).with(job, [[]])
-        #         ↓ [[]] is returned by RSpec's block probe.    ↑
+        expect(middleware).to receive(:job_completed).with(job, nil)
         expect { |b| middleware.call(worker, job, queue, &b) }.to yield_control
       end
     end
@@ -23,7 +22,7 @@ describe Sidekiq::Promise::ServerMiddleware do
         expect(middleware).to receive(:job_errored).with(job, exception)
         expect do
           middleware.call(worker,job,queue) { raise exception }
-        end.to raise_error
+        end.to raise_error(RuntimeError)
       end
     end
   end
